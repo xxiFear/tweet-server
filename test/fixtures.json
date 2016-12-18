@@ -1,0 +1,40 @@
+{
+  "tweetService": "http://localhost:4000",
+  "users": [
+    {
+      "firstName": "Matthias",
+      "lastName": "Hartmann",
+      "email": "matthias.hartmann@mail.de",
+      "password": "secret"
+    },
+    {
+      "firstName": "Sabrina",
+      "lastName": "Grundner",
+      "email": "sabrina.grundner@mail.de",
+      "password": "secret"
+    },
+    {
+      "firstName": "Thomas",
+      "lastName": "Litter",
+      "email": "thomas.litter@mail.de",
+      "password": "secret"
+    }
+  ],
+  "tweets": [
+    {
+      "message": "Hallo"
+    },
+    {
+      "message": "Servus"
+    }
+  ],
+  "newTweet": {
+    "message": "Hallo alle!"
+  },
+  "newUser": {
+    "firstName": "Martin",
+    "lastName": "Bauer",
+    "email": "martin.bauer@mail.de",
+    "password": "secret"
+  }
+}
