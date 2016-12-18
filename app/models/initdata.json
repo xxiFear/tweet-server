@@ -1,0 +1,50 @@
+{
+  "users": {
+    "_model": "User",
+    "matthias": {
+      "firstName": "Matthias",
+      "lastName": "Hartmann",
+      "email": "matthias.hartmann@mail.de",
+      "password": "secret"
+    },
+    "sabrina": {
+      "firstName": "Sabrina",
+      "lastName": "Grundner",
+      "email": "sabrina.grundner@mail.de",
+      "password": "secret"
+    },
+    "thomas": {
+      "firstName": "Thomas",
+      "lastName": "Litter",
+      "email": "thomas.litter@mail.de",
+      "password": "secret"
+    }
+  },
+  "tweets": {
+    "_model": "Tweet",
+    "one": {
+      "author": "->users.matthias",
+      "message": "Hello everyone!"
+    },
+    "two": {
+      "author": "->users.sabrina",
+      "message": "Hello everyone!"
+    },
+    "three" : {
+      "author": "->users.thomas",
+      "message": "Hello everyone!"
+    },
+    "four": {
+      "author": "->users.matthias",
+      "message": "I like coffee"
+    },
+    "five": {
+      "author": "->users.thomas",
+      "message": "My name is Florian"
+    },
+    "six" : {
+      "author": "->users.sabrina",
+      "message": "I like motorcycles"
+    }
+  }
+}
