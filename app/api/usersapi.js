@@ -132,7 +132,11 @@ exports.createTweet = {
 
   handler: function (request, reply) {
     const tweet = new Tweet(request.payload);
-    tweet.author = request.params.id;
+    const token = request.headers.authorization.split(' ')[1];
+    const userInfo = utils.decodeToken(token);
+    tweet.author = userInfo.userId;
+
+    // tweet.author = request.params.id;
     tweet.save().then(newTweet => {
       reply(newTweet).code(201);
     }).catch(err => {
