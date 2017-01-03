@@ -115,7 +115,7 @@ exports.findAllTweets = {
   },
 
   handler: function (request, reply) {
-    Tweet.find({ author: request.params.id }).then(tweets => {
+    Tweet.find({ author: request.params.id }).populate('author').exec().then(tweets => {
       reply(tweets);
     }).catch(err => {
       reply(Boom.badImplementation('error accessing db'));
