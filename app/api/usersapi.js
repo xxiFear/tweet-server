@@ -115,8 +115,15 @@ exports.findAllTweets = {
   },
 
   handler: function (request, reply) {
-    Tweet.find({ author: request.params.id }).populate('author').exec().then(tweets => {
+    Tweet.find({ author: request.params.id })
+        .sort([['_id', -1]])
+        .limit(30)
+        .populate('author')
+        .exec()
+        .then(tweets => {
+
       reply(tweets);
+
     }).catch(err => {
       reply(Boom.badImplementation('error accessing db'));
     });
@@ -136,12 +143,21 @@ exports.createTweet = {
     const userInfo = utils.decodeToken(token);
     tweet.author = userInfo.userId;
 
-    // tweet.author = request.params.id;
-    tweet.save().then(newTweet => {
-      reply(newTweet).code(201);
+    tweet.save().then(savedTweet => {
+      Tweet.findOne({ _id: savedTweet._id }).populate('author').exec().then(newTweet => {
+        reply(newTweet).code(201);
+      }).catch(err => {
+        reply(Boom.badImplementation('error finding just saved tweet'));
+      });
     }).catch(err => {
-      reply(Boom.badImplementation('error making donation'));
+      reply(Boom.badImplementation('error saving tweet'));
     });
+
+    // tweet.save().then(newTweet => {
+    //   reply(newTweet).code(201);
+    // }).catch(err => {
+    //   reply(Boom.badImplementation('error saving tweet'));
+    // });
   },
 
 };
