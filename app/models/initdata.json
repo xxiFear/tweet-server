@@ -5,19 +5,25 @@
       "firstName": "Matthias",
       "lastName": "Hartmann",
       "email": "matthias.hartmann@mail.de",
-      "password": "secret"
+      "password": "secret",
+      "description": "I live in Regensburg, Bavaria and like Coffee",
+      "gender": "Male"
     },
     "sabrina": {
       "firstName": "Sabrina",
       "lastName": "Grundner",
       "email": "sabrina.grundner@mail.de",
-      "password": "secret"
+      "password": "secret",
+      "description": "I live in Nittendorf, Bavaria",
+      "gender": "Female"
     },
     "thomas": {
       "firstName": "Thomas",
       "lastName": "Litter",
       "email": "thomas.litter@mail.de",
-      "password": "secret"
+      "password": "secret",
+      "description": "I like coffee",
+      "gender": "Male"
     }
   },
   "tweets": {

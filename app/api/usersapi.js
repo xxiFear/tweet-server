@@ -33,7 +33,7 @@ exports.findOne = {
         reply(user);
       }
 
-      reply(Boom.notFound('id not found'));
+      // reply(Boom.notFound('id not found'));
     }).catch(err => {
       reply(Boom.notFound('id not found'));
     });
@@ -59,7 +59,7 @@ exports.authenticate = {
 
 };
 
-exports.create = {
+exports.createOrUpdate = {
 
   auth: {
     strategy: 'jwt',
@@ -67,13 +67,29 @@ exports.create = {
 
   handler: function (request, reply) {
     const user = new User(request.payload);
-    user.save().then(newUser => {
-      reply(newUser).code(201);
-    }).catch(err => {
-      reply(Boom.badImplementation('error creating User'));
-    });
-  },
+    const query = { '_id': user._id };
+    const update = {
+      firstName: user.firstName,
+      lastName: user.lastName,
+      gender: user.gender,
+      password: user.password,
+      description: user.description,
+    };
+    const options = { upsert: true, new: true, setDefaultsOnInsert: true };
 
+    User.findOneAndUpdate(query, update, options, function (error, newUser) {
+      if (error) reply(Boom.badImplementation('error creating or updating user'));
+
+      reply(newUser).code(201);
+    });
+
+    //   user.save().then(newUser => {
+    //     reply(newUser).code(201);
+    //   }).catch(err => {
+    //     reply(Boom.badImplementation('error creating User'));
+    //   });
+    // },
+  },
 };
 
 exports.deleteAll = {
