@@ -5,6 +5,31 @@ const Tweet = require('../models/tweet');
 const Boom = require('boom');
 const utils = require('./utils.js');
 
+exports.getAuthenticatedUser = {
+
+  auth: {
+    strategy: 'jwt',
+  },
+
+  handler: function (request, reply) {
+
+    const userToUnfollow = new User(request.payload);
+    const token = request.headers.authorization.split(' ')[1];
+    const userInfo = utils.decodeToken(token);
+    const userId = userInfo.userId;
+
+    User.findById(
+        userId,
+        function (err, authorizedUser) {
+          if (err) reply(Boom.badImplementation('error'));
+
+          reply(authorizedUser).code(201);
+        }
+    );
+  },
+
+};
+
 exports.find = {
 
   auth: {

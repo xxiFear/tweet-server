@@ -15,7 +15,10 @@
       "email": "sabrina.grundner@mail.de",
       "password": "secret",
       "description": "I live in Nittendorf, Bavaria",
-      "gender": "Female"
+      "gender": "Female",
+      "following": [
+        "->users.matthias"
+        ]
     },
     "thomas": {
       "firstName": "Thomas",
