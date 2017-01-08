@@ -7,7 +7,8 @@
       "email": "matthias.hartmann@mail.de",
       "password": "secret",
       "description": "I live in Regensburg, Bavaria and like Coffee",
-      "gender": "Male"
+      "gender": "Male",
+      "role": "admin"
     },
     "sabrina": {
       "firstName": "Sabrina",
@@ -18,7 +19,8 @@
       "gender": "Female",
       "following": [
         "->users.matthias"
-        ]
+        ],
+      "role": "user"
     },
     "thomas": {
       "firstName": "Thomas",
@@ -26,7 +28,11 @@
       "email": "thomas.litter@mail.de",
       "password": "secret",
       "description": "I like coffee",
-      "gender": "Male"
+      "gender": "Male",
+      "following": [
+        "->users.matthias"
+      ],
+      "role": "user"
     }
   },
   "tweets": {

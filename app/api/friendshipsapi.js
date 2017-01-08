@@ -8,6 +8,7 @@ exports.follow = {
 
   auth: {
     strategy: 'jwt',
+    scope: ['admin', 'user'],
   },
 
   handler: function (request, reply) {
@@ -33,6 +34,7 @@ exports.unfollow = {
 
   auth: {
     strategy: 'jwt',
+    scope: ['admin', 'user'],
   },
 
   handler: function (request, reply) {
@@ -54,3 +56,4 @@ exports.unfollow = {
 
   },
 };
+

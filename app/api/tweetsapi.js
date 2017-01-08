@@ -2,15 +2,21 @@
 
 const Tweet = require('../models/tweet');
 const Boom = require('boom');
+const GCloud = require('gcloud');
 
 exports.find = {
 
   auth: {
     strategy: 'jwt',
+    scope: ['admin', 'user'],
   },
 
   handler: function (request, reply) {
-    Tweet.find({}).sort([['_id', -1]]).limit(30).populate('author').exec().then(tweets => {
+    Tweet.find({}).sort([['_id', -1]]).limit(30)
+        .populate({
+          path: 'author', model: 'User',
+          populate: { path: 'following', model: 'User' },
+        }).exec().then(tweets => {
       reply(tweets);
     }).catch(err => {
       reply(Boom.badImplementation('error accessing db'));
@@ -23,10 +29,14 @@ exports.findOne = {
 
   auth: {
     strategy: 'jwt',
+    scope: ['admin', 'user'],
   },
 
   handler: function (request, reply) {
-    Tweet.findOne({ _id: request.params.id }).then(tweet => {
+    Tweet.findOne({ _id: request.params.id }).populate({
+      path: 'author', model: 'User',
+      populate: { path: 'following', model: 'User' },
+    }).exec().then(tweet => {
       if (tweet != null) {
         reply(tweet);
       }
@@ -43,6 +53,7 @@ exports.findUser = {
 
   auth: {
     strategy: 'jwt',
+    scope: ['admin', 'user'],
   },
 
   handler: function (request, reply) {
@@ -59,6 +70,7 @@ exports.create = {
 
   auth: {
     strategy: 'jwt',
+    scope: ['admin', 'user'],
   },
 
   handler: function (request, reply) {
@@ -76,6 +88,7 @@ exports.deleteAll = {
 
   auth: {
     strategy: 'jwt',
+    scope: ['admin'],
   },
 
   handler: function (request, reply) {
@@ -92,6 +105,7 @@ exports.deleteOne = {
 
   auth: {
     strategy: 'jwt',
+    scope: ['admin', 'user'],
   },
 
   handler: function (request, reply) {

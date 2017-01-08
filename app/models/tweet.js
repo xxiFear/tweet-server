@@ -3,7 +3,7 @@
 const mongoose = require('mongoose');
 
 const tweetSchema = mongoose.Schema({
-  //TODO add picture
+  imagePath: String,
   author: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
