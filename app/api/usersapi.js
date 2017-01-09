@@ -169,8 +169,13 @@ exports.deleteOne = {
   },
 
   handler: function (request, reply) {
-    User.remove({ _id: request.params.id }).then(user => {
-      reply(User).code(204);
+    User.findOne({ _id: request.params.id }).then(user => {
+      if (user != null) {
+        user.remove();
+        reply(User).code(204);
+      } else {
+        reply(Boom.notFound('id not found'));
+      }
     }).catch(err => {
       reply(Boom.notFound('id not found'));
     });

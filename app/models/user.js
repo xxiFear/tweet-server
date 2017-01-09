@@ -1,5 +1,5 @@
 'use strict';
-
+const Tweet = require('./tweet');
 const mongoose = require('mongoose');
 
 const userSchema = mongoose.Schema({
@@ -30,6 +30,11 @@ const userSchema = mongoose.Schema({
     enum: ['admin', 'user'],
     default: 'user',
   },
+});
+
+userSchema.pre('remove', function (next) {
+  Tweet.remove({ author: this._id }).exec();
+  next();
 });
 
 const User = mongoose.model('User', userSchema);

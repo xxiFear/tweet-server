@@ -10,7 +10,8 @@ module.exports = [
   { method: 'GET', path: '/api/tweets/{id}/user', config: UsersApi.findOne },
   { method: 'DELETE', path: '/api/tweets/{id}', config: TweetsApi.deleteOne },
   { method: 'DELETE', path: '/api/tweets', config: TweetsApi.deleteAll },
-  { method: 'DELETE', path: '/api/tweets/{multipleTweets}', config: TweetsApi.deleteMultiple },
+  //  TODO
+  // { method: 'DELETE', path: '/api/tweets/{multipleTweets}', config: TweetsApi.deleteMultiple },
 
   { method: 'GET', path: '/api/users/{id}/tweets', config: UsersApi.findAllTweets },
   { method: 'DELETE', path: '/api/users/{id}/tweets', config: UsersApi.deleteAllTweets },
@@ -24,7 +25,8 @@ module.exports = [
   { method: 'POST', path: '/api/users', config: UsersApi.createOrUpdate },
   { method: 'DELETE', path: '/api/users/{id}', config: UsersApi.deleteOne },
   { method: 'DELETE', path: '/api/users', config: UsersApi.deleteAll },
-  { method: 'DELETE', path: '/api/users/{multipleUsers}', config: TweetsApi.deleteMultiple },
+  //TODO
+  // { method: 'DELETE', path: '/api/users/{multipleUsers}', config: TweetsApi.deleteMultiple },
   { method: 'POST', path: '/api/users/authenticate', config: UsersApi.authenticate },
   { method: 'GET', path: '/api/users/{id}/follower', config: UsersApi.getFollower },
 
