@@ -329,6 +329,25 @@ exports.deleteAllTweets = {
   },
 };
 
+exports.deleteMultiple = {
+
+  auth: {
+    strategy: 'jwt',
+    scope: ['user', 'admin'],
+  },
+
+  handler: function (request, reply) {
+    const usersToDelete = JSON.parse(request.params.multipleUsers);
+
+    User.remove({ _id: { $in: usersToDelete } }).then(users => {
+      reply(users).code(204);
+    }).catch(err => {
+      reply(Boom.notFound('Id(s) not found'));
+    });
+  },
+
+};
+
 function uploadFile(file, contents, callback) {
   // open write stream
   var stream = file.createWriteStream({

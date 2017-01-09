@@ -117,3 +117,22 @@ exports.deleteOne = {
   },
 
 };
+
+exports.deleteMultiple = {
+
+  auth: {
+    strategy: 'jwt',
+    scope: ['user', 'admin'],
+  },
+
+  handler: function (request, reply) {
+    const tweetsToDelete = JSON.parse(request.params.multipleTweets);
+
+    Tweet.remove({ _id: { $in: tweetsToDelete } }).then(tweets => {
+      reply(tweets).code(204);
+    }).catch(err => {
+      reply(Boom.notFound('Id(s) not found'));
+    });
+  },
+
+};
