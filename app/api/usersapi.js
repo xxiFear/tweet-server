@@ -333,7 +333,7 @@ exports.deleteMultiple = {
 
   auth: {
     strategy: 'jwt',
-    scope: ['user', 'admin'],
+    scope: ['admin'],
   },
 
   handler: function (request, reply) {
