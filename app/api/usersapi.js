@@ -109,10 +109,7 @@ exports.authenticate = {
 
 exports.createOrUpdate = {
 
-  auth: {
-    strategy: 'jwt',
-    scope: ['admin', 'user'],
-  },
+  auth: false,
 
   handler: function (request, reply) {
     const user = new User(request.payload);
