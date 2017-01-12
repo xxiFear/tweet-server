@@ -14,7 +14,7 @@ mongoose.connect(dbURI);
 
 mongoose.connection.on('connected', function () {
   console.log('Mongoose connected to ' + dbURI);
-  if (process.env.NODE_ENV != 'production') {
+  if (process.env.NODE_ENV == 'production' || process.env.NODE_ENV != 'production') {
     var seeder = require('mongoose-seeder');
     const data = require('./initdata.json');
     const Tweet = require('./tweet');
