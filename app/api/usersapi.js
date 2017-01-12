@@ -214,6 +214,10 @@ exports.createTweet = {
     scope: ['user', 'admin'],
   },
 
+  payload: {
+    maxBytes: 10000000,
+  },
+
   handler: function (request, reply) {
     const base64regex = /^([0-9a-zA-Z+/]{4})*(([0-9a-zA-Z+/]{2}==)|([0-9a-zA-Z+/]{3}=))?$/;
     const tweet = new Tweet(request.payload);
@@ -229,11 +233,11 @@ exports.createTweet = {
       if (base64regex.test(request.payload.image)) {
         const image = new Buffer(request.payload.image, 'base64');
 
-        var storage = GCloud.storage({
+        let storage = GCloud.storage({
           projectId: 'tweet-bccc8',
           keyFilename: ('gcloudKeyFile.json'),
         });
-        var bucket = storage.bucket('tweet-bccc8.appspot.com');
+        let bucket = storage.bucket('tweet-bccc8.appspot.com');
 
         const fileName = userID + '/' + new Date().getTime();
         const newFile = bucket.file(fileName);
@@ -286,37 +290,28 @@ exports.createTweet = {
 
 };
 
-// exports.createTweet = {
-//
-//   auth: {
-//     strategy: 'jwt',
-//     scope: ['admin', 'user'],
-//   },
-//
-//   handler: function (request, reply) {
-//     const tweet = new Tweet(request.payload);
-//     const token = request.headers.authorization.split(' ')[1];
-//     const userInfo = utils.decodeToken(token);
-//     tweet.author = userInfo.userId;
-//
-//     tweet.save().then(savedTweet => {
-//       Tweet.findOne({ _id: savedTweet._id }).populate('author').exec().then(newTweet => {
-//         reply(newTweet).code(201);
-//       }).catch(err => {
-//         reply(Boom.badImplementation('error finding just saved tweet'));
-//       });
-//     }).catch(err => {
-//       reply(Boom.badImplementation('error saving tweet'));
-//     });
-//
-//     // tweet.save().then(newTweet => {
-//     //   reply(newTweet).code(201);
-//     // }).catch(err => {
-//     //   reply(Boom.badImplementation('error saving tweet'));
-//     // });
-//   },
-//
-// };
+exports.deleteMultiple = {
+
+  auth: {
+    strategy: 'jwt',
+    scope: ['admin', 'user'],
+  },
+
+  handler: function (request, reply) {
+    const usersToDelete = JSON.parse(request.params.multipleUsers);
+    //Needs to be done manually in order to user pre hook
+    usersToDelete.forEach(id => {
+      User.findOne({ _id: id }).then(user => {
+        if (user != null) {
+          user.remove();
+        }
+      }).catch(err => {
+        reply(Boom.notFound('one or more ids not found'));
+      });
+    });
+    reply().code(204);
+  },
+};
 
 exports.deleteAllTweets = {
 
@@ -334,28 +329,9 @@ exports.deleteAllTweets = {
   },
 };
 
-exports.deleteMultiple = {
-
-  auth: {
-    strategy: 'jwt',
-    scope: ['admin'],
-  },
-
-  handler: function (request, reply) {
-    const usersToDelete = JSON.parse(request.params.multipleUsers);
-
-    User.remove({ _id: { $in: usersToDelete } }).then(users => {
-      reply(users).code(204);
-    }).catch(err => {
-      reply(Boom.notFound('Id(s) not found'));
-    });
-  },
-
-};
-
 function uploadFile(file, contents, callback) {
   // open write stream
-  var stream = file.createWriteStream({
+  let stream = file.createWriteStream({
     metadata: {
       contentType: 'image/jpeg',
     },

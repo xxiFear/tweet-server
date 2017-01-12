@@ -128,10 +128,10 @@ exports.deleteMultiple = {
   handler: function (request, reply) {
     const tweetsToDelete = JSON.parse(request.params.multipleTweets);
 
-    Tweet.remove({ _id: { $in: tweetsToDelete } }).then(tweets => {
-      reply(tweets).code(204);
+    Tweet.remove({ _id: { $in: tweetsToDelete } }).then((result, tweets) => {
+      reply(result.result).code(204);
     }).catch(err => {
-      reply(Boom.notFound('Id(s) not found'));
+      reply(Boom.notFound('one or more IDs not found'));
     });
   },
 
