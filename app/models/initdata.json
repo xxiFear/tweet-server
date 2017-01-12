@@ -1,6 +1,15 @@
 {
   "users": {
     "_model": "User",
+    "alex": {
+      "firstName": "Alex",
+      "lastName": "Trump",
+      "email": "alex.trump@mail.de",
+      "password": "secret",
+      "description": "Fast cars are the best!",
+      "gender": "Male",
+      "role": "user"
+    },
     "matthias": {
       "firstName": "Matthias",
       "lastName": "Hartmann",
@@ -9,6 +18,18 @@
       "description": "I live in Regensburg, Bavaria and like Coffee",
       "gender": "Male",
       "role": "admin"
+    },
+    "hermann": {
+      "firstName": "Hermann",
+      "lastName": "Schultz",
+      "email": "hermann.schultz@mail.de",
+      "password": "secret",
+      "description": "Noodles!",
+      "gender": "Male",
+      "following": [
+        "->users.matthias"
+      ],
+      "role": "user"
     },
     "sabrina": {
       "firstName": "Sabrina",
@@ -29,6 +50,54 @@
       "password": "secret",
       "description": "I like coffee",
       "gender": "Male",
+      "following": [
+        "->users.matthias"
+      ],
+      "role": "user"
+    },
+    "martin": {
+      "firstName": "Martin",
+      "lastName": "Hansen",
+      "email": "martin.hansen@mail.de",
+      "password": "secret",
+      "description": "I live in Florida",
+      "gender": "Male",
+      "following": [
+        "->users.sabrina"
+      ],
+      "role": "user"
+    },
+    "lukas": {
+      "firstName": "Lukas",
+      "lastName": "Darwin",
+      "email": "lukas.darwin@mail.de",
+      "password": "secret",
+      "description": "My uncle has 3 legs",
+      "gender": "Male",
+      "following": [
+        "->users.martin"
+      ],
+      "role": "user"
+    },
+    "sebastian": {
+      "firstName": "Sebastian",
+      "lastName": "Feris",
+      "email": "sebastian.feris@mail.de",
+      "password": "secret",
+      "description": "I am the destroyer",
+      "gender": "Male",
+      "following": [
+        "->users.thomas"
+      ],
+      "role": "user"
+    },
+    "selina": {
+      "firstName": "Selina",
+      "lastName": "Brunicel",
+      "email": "selina.brunicel@mail.de",
+      "password": "secret",
+      "description": "I like yoshi!",
+      "gender": "Female",
       "following": [
         "->users.matthias"
       ],
@@ -60,6 +129,26 @@
     "six" : {
       "author": "->users.sabrina",
       "message": "I like motorcycles"
+    },
+    "seven" : {
+      "author": "->users.sebastian",
+      "message": "My biggest fear are spiders"
+    },
+    "eight" : {
+      "author": "->users.lukas",
+      "message": "I am the king!"
+    },
+    "nine" : {
+      "author": "->users.martin",
+      "message": "I don't know what to write"
+    },
+    "ten" : {
+      "author": "->users.martin",
+      "message": "This app is pretty cool!"
+    },
+    "eleven" : {
+      "author": "->users.selina",
+      "message": "My post is on top :-)!!"
     }
   }
 }
