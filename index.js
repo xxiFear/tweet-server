@@ -45,7 +45,7 @@ server.register([require('inert'), require('vision'), require('hapi-auth-cookie'
   });*/
 
   server.ext('onPreResponse', corsHeaders);
-  server.route(require('./routes'));
+  // server.route(require('./routes'));
   server.route(require('./routesapi'));
 
   server.start((err) => {
